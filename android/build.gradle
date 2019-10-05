@@ -15,7 +15,7 @@ android {
 //        instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        minSdkVersion 8
+        minSdkVersion 9
     }
 }
 

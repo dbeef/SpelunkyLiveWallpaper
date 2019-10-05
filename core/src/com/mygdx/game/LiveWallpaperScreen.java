@@ -11,10 +11,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.level.Level;
+import com.mygdx.game.level.LevelGenerator;
+import com.mygdx.game.level.LevelRenderer;
+import com.mygdx.game.level.MapTile;
 
 import static com.badlogic.gdx.Gdx.gl;
 import static com.mygdx.game.Consts.*;
@@ -23,23 +24,23 @@ public class LiveWallpaperScreen implements Screen{
 
     Game game;
 
-    Level level;
+    LevelGenerator levelGenerator;
+    LevelRenderer levelRenderer;
+
     Assets assets;
-    OrthographicCamera camera;
-    SpriteBatch batcher;
 
     public LiveWallpaperScreen(final Game game) {
         this.game = game;
 
-        camera = new OrthographicCamera(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-
         assets = new Assets();
         assets.load();
 
-        level = new Level(assets);
+        levelGenerator = new LevelGenerator();
+        levelRenderer = new LevelRenderer(assets);
 
-        batcher = new SpriteBatch();
+        levelGenerator.generate_new_level_layout();
+        levelGenerator.generate_frame();
+        levelGenerator.initialise_tiles_from_room_layout();
     }
 
     @Override
@@ -61,14 +62,7 @@ public class LiveWallpaperScreen implements Screen{
     }
 
     private void draw(float delta) {
-        gl.glClearColor(0, 0, 0, 1);
-        gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.update();
-
-        batcher.setProjectionMatrix(camera.combined);
-        batcher.begin();
-        batcher.draw(level.getTextureForTile(MapTileType.CAVE_ROCK), 0, 0, TILE_WIDTH, TILE_HEIGHT);
-        batcher.end();
+        levelRenderer.draw(levelGenerator.getLevel());
     }
 
     private void update(float delta) {

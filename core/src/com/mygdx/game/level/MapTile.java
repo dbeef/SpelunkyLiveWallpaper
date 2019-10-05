@@ -1,8 +1,8 @@
-package com.mygdx.game;
+package com.mygdx.game.level;
 
-// Taken from SpelunkyDS's tiles/MapTileType.hpp
+// Taken from SpelunkyDS's tiles/MapTile.hpp
 
-enum MapTileType {
+public enum MapTile {
     NOTHING(0),
     CAVE_ROCK(1),
     CAVE_REGULAR(2),
@@ -48,13 +48,13 @@ enum MapTileType {
     ALTAR_RIGHT(42),
     _END(43);
 
-    MapTileType(int value) {
+    MapTile(int value) {
         _value = value;
     }
 
-    int getValue() {
+    public int getValue() {
         return _value;
     }
 
-    int _value;
+    private int _value;
 };

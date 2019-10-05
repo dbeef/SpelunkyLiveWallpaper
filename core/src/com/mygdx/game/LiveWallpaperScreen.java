@@ -1,7 +1,13 @@
 package com.mygdx.game;
 
+// 1. Generate map in a way that is transparent for renderer (whether using OpenGL directly or via LibGDX wrapper)
+// 2. Implement renderer - prototype LibGDX way
+// 3. Implement NPC's.
+
+// Trivia:
+// Screen scaling. Query for screen dimensions.
+
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,28 +17,28 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import static com.badlogic.gdx.Gdx.gl;
+import static com.mygdx.game.Consts.*;
 
 public class LiveWallpaperScreen implements Screen{
 
-    public static final String ASSETS_PREFIX = "android/assets/";
-//    public static final String ASSETS_PREFIX = "";
-
     Game game;
 
+    Level level;
+    Assets assets;
     OrthographicCamera camera;
-    Texture textureBg;
-    TextureRegion background;
     SpriteBatch batcher;
 
     public LiveWallpaperScreen(final Game game) {
         this.game = game;
 
-        camera = new OrthographicCamera(320, 480);
+        camera = new OrthographicCamera(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
 
-        textureBg = new Texture(ASSETS_PREFIX + "badlogic.jpg");
-        textureBg.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        background = new TextureRegion(textureBg, 0, 0, 256, 512);
+        assets = new Assets();
+        assets.load();
+
+        level = new Level(assets);
+
         batcher = new SpriteBatch();
     }
 
@@ -61,7 +67,7 @@ public class LiveWallpaperScreen implements Screen{
 
         batcher.setProjectionMatrix(camera.combined);
         batcher.begin();
-        batcher.draw(background, 0, 0,camera.viewportWidth, camera.viewportHeight);
+        batcher.draw(level.getTextureForTile(MapTileType.CAVE_ROCK), 0, 0, TILE_WIDTH, TILE_HEIGHT);
         batcher.end();
     }
 

@@ -63,6 +63,7 @@ public class LiveWallpaperScreen implements Screen{
 
     private void draw(float delta) {
         levelRenderer.draw(levelGenerator.getLevel());
+        levelRenderer.takeInput();
     }
 
     private void update(float delta) {

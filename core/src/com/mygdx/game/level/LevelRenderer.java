@@ -1,5 +1,7 @@
 package com.mygdx.game.level;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +22,22 @@ public class LevelRenderer {
         batcher = new SpriteBatch();
     }
 
+    // For debugging.
+    public void takeInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            camera.translate(-2f, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            camera.translate(+2f, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            camera.translate(0, -2, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            camera.translate(0, +2, 0);
+        }
+    }
+
     public void draw(Level level) {
         gl.glClearColor(0, 0, 0, 1);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -28,20 +46,17 @@ public class LevelRenderer {
         batcher.setProjectionMatrix(camera.combined);
         batcher.begin();
 
-        for(int x = 0; x < TILES_X; x++)
-        {
-            for(int y = 0; y < TILES_Y; y++)
-            {
+        for (int x = 0; x < TILES_X; x++) {
+            for (int y = 0; y < TILES_Y; y++) {
                 // Horizontal flip of map tiles:
                 MapTile tile = level.tiles[TILES_X - x - 1][TILES_Y - y - 1];
+                if (tile == MapTile.NOTHING) continue;
 
                 int offset_x = (x * 16);
                 int offset_y = (y * 16);
 
-                if (tile != MapTile.NOTHING){
-                    // Draw with x/y flip:
-                    batcher.draw(assets.getTextureRegion(tile), offset_y, offset_x, TILE_WIDTH, TILE_HEIGHT);
-                }
+                // Draw with x/y flip:
+                batcher.draw(assets.getTextureRegion(tile), offset_y, offset_x, TILE_WIDTH, TILE_HEIGHT);
             }
         }
 

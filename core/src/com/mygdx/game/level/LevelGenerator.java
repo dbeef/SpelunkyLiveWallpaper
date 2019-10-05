@@ -154,8 +154,9 @@ public class LevelGenerator {
                 }
 
                 // now copy tab to 2d list of tiles
-                int offset_x = room_x * 10;
-                int offset_y = room_y * 10;
+                // + 1 since there's margin of undestructable blocks on the borders of map
+                int offset_x = (room_x * 10) + 1;
+                int offset_y = (room_y * 10) + 1;
 
                 for (int tile_x = 0; tile_x < 10; tile_x++)
                     for (int tile_y = 0; tile_y < 10; tile_y++) {

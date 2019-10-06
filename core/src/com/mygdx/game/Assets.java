@@ -1,9 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.level.MapTile;
@@ -13,12 +10,10 @@ import static com.mygdx.game.Consts.getAssetsPrefix;
 public class Assets {
 
     private TextureRegion[] _caveSprites = new TextureRegion[MapTile._END.getValue()];
-    private Texture _spritesheet = null;
-    TextureAtlas atlas = null;
 
     public void load() {
 
-        atlas = new TextureAtlas(Gdx.files.internal(getAssetsPrefix() + "tiles/cave/Cave.atlas"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(getAssetsPrefix() + "tiles/cave/Cave.atlas"));
 
         _caveSprites[MapTile.CAVE_ROCK.getValue()] = atlas.findRegion("caveWithRock");
         _caveSprites[MapTile.CAVE_REGULAR.getValue()] = atlas.findRegion("cave");
@@ -54,7 +49,6 @@ public class Assets {
 
     public TextureRegion getTextureRegion(MapTile tile) {
         int value = tile.getValue();
-        assert(value < _caveSprites.length);
         return _caveSprites[value];
     }
 }

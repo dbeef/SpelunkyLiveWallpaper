@@ -27,6 +27,18 @@ public class LevelRenderer {
         cameraVelocity = new Vector2(0.5f, 0.5f);
     }
 
+    public boolean tileInViewport(int x, int y)
+    {
+        if (x > camera.position.x - (0.5 * camera.viewportWidth) - TILE_WIDTH &&
+                x < camera.position.x + (0.5 * camera.viewportWidth) &&
+                y > camera.position.y - (0.5 * camera.viewportHeight) - TILE_HEIGHT &&
+                y < camera.position.y + (0.5 * camera.viewportHeight)
+        )
+            return true;
+        else
+            return false;
+    }
+
     public boolean viewportXOutOfLevel() {
         return (camera.position.x + (0.5f * camera.viewportWidth) > TILE_WIDTH * TILES_X) ||
                 camera.position.x < camera.viewportWidth / 2;
@@ -40,7 +52,7 @@ public class LevelRenderer {
     public void floatCamera(float delta) {
         cameraMoveTimer += delta;
 
-        if(cameraMoveTimer > (1.0f / 60.0f))
+        if(cameraMoveTimer > (1.0f / 30.0f))
         {
             cameraMoveTimer = 0;
             camera.translate(cameraVelocity);
@@ -68,10 +80,7 @@ public class LevelRenderer {
     }
 
     public void draw(Level level) {
-        gl.glClearColor(0, 0, 0, 1);
-        gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
-
         batcher.setProjectionMatrix(camera.combined);
         batcher.begin();
 
@@ -83,6 +92,8 @@ public class LevelRenderer {
 
                 int offset_x = (x * 16);
                 int offset_y = (y * 16);
+
+                if (!tileInViewport(offset_y, offset_x)) continue;
 
                 // Draw with x/y flip:
                 TextureRegion region = assets.getTextureRegion(tile);

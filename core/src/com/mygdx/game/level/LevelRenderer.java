@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Assets;
+import com.mygdx.game.Consts;
 
 import static com.badlogic.gdx.Gdx.gl;
 import static com.mygdx.game.Consts.*;
@@ -14,7 +16,6 @@ import static com.mygdx.game.Consts.SCREEN_HEIGHT;
 import static com.mygdx.game.level.Level.TILES_X;
 import static com.mygdx.game.level.Level.TILES_Y;
 
-// FIXME: Texture bleeding.
 public class LevelRenderer {
 
     public LevelRenderer(Assets assets) {
@@ -22,6 +23,32 @@ public class LevelRenderer {
         camera = new OrthographicCamera(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         batcher = new SpriteBatch();
+
+        cameraVelocity = new Vector2(0.5f, 0.5f);
+    }
+
+    public boolean viewportXOutOfLevel() {
+        return (camera.position.x + (0.5f * camera.viewportWidth) > TILE_WIDTH * TILES_X) ||
+                camera.position.x < camera.viewportWidth / 2;
+    }
+
+    public boolean viewportYOutOfLevel() {
+        return (camera.position.y + (0.5f * camera.viewportHeight) > TILE_HEIGHT * TILES_Y) ||
+                camera.position.y < camera.viewportHeight / 2;
+    }
+
+    public void floatCamera(float delta) {
+        cameraMoveTimer += delta;
+
+        if(cameraMoveTimer > (1.0f / 60.0f))
+        {
+            cameraMoveTimer = 0;
+            camera.translate(cameraVelocity);
+            if(viewportXOutOfLevel())
+                cameraVelocity.x *= -1;
+            if(viewportYOutOfLevel())
+                cameraVelocity.y *= -1;
+        }
     }
 
     // For debugging.
@@ -70,4 +97,6 @@ public class LevelRenderer {
     OrthographicCamera camera;
     SpriteBatch batcher;
     Assets assets;
+    float cameraMoveTimer = 0;
+    Vector2 cameraVelocity;
 }

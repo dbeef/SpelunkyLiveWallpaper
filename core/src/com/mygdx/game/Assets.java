@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.level.Loot;
 import com.mygdx.game.level.MapTile;
 
 import static com.mygdx.game.Consts.getAssetsPrefix;
@@ -10,9 +11,9 @@ import static com.mygdx.game.Consts.getAssetsPrefix;
 public class Assets {
 
     private TextureRegion[] _caveSprites = new TextureRegion[MapTile._END.getValue()];
+    private TextureRegion[] _loot = new TextureRegion[Loot._END.getValue()];
 
     public void load() {
-
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(getAssetsPrefix() + "tiles/cave/Cave.atlas"));
 
         _caveSprites[MapTile.CAVE_ROCK.getValue()] = atlas.findRegion("caveWithRock");
@@ -45,10 +46,21 @@ public class Assets {
         _caveSprites[MapTile.BGR_14.getValue()] = atlas.findRegion("caveBg14");
         _caveSprites[MapTile.BGR_15.getValue()] = atlas.findRegion("caveBg15");
         _caveSprites[MapTile.BGR_16.getValue()] = atlas.findRegion("caveBg16");
+
+        _loot[Loot.JAR.getValue()] = atlas.findRegion("jar");
+        _loot[Loot.SINGLE_GOLD_BAR.getValue()] = atlas.findRegion("singleGoldBar");
+        _loot[Loot.TRIPLE_GOLD_BAR.getValue()] = atlas.findRegion("tripleGoldbar");
+        _loot[Loot.ROCK.getValue()] = atlas.findRegion("rock");
+        _loot[Loot.CHEST.getValue()] = atlas.findRegion("chest");
     }
 
     public TextureRegion getTextureRegion(MapTile tile) {
         int value = tile.getValue();
         return _caveSprites[value];
+    }
+
+    public TextureRegion getTextureRegion(Loot loot) {
+        int value = loot.getValue();
+        return _loot[value];
     }
 }

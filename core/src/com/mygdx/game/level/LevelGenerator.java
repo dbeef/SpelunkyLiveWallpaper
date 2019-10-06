@@ -1,25 +1,35 @@
 package com.mygdx.game.level;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.Arrays;
 import java.util.Random;
 
 import static com.mygdx.game.level.Level.*;
 import static com.mygdx.game.level.RoomType.*;
 import static com.mygdx.game.rooms.ClosedRooms.closed_rooms;
+import static com.mygdx.game.rooms.ClosedRooms.closed_rooms_loot;
 import static com.mygdx.game.rooms.EntranceRooms.entrance_room;
+import static com.mygdx.game.rooms.EntranceRooms.entrance_room_loot;
 import static com.mygdx.game.rooms.ExitRooms.exit_room;
+import static com.mygdx.game.rooms.ExitRooms.exit_room_loot;
+import static com.mygdx.game.rooms.LeftRightDownRooms.left_right_down_loot;
 import static com.mygdx.game.rooms.LeftRightDownRooms.left_right_down_rooms;
+import static com.mygdx.game.rooms.LeftRightRooms.left_right_loot;
 import static com.mygdx.game.rooms.LeftRightRooms.left_right_rooms;
+import static com.mygdx.game.rooms.LeftRightUpRooms.left_right_up_loot;
 import static com.mygdx.game.rooms.LeftRightUpRooms.left_right_up_rooms;
 
 // FIXME: Does not generate proper level.
 public class LevelGenerator {
 
+    private static final int OFFSET_X = 2;
+    private static final int OFFSET_Y = 2;
     private Random rand = new Random();
 
     private static final int CPP_RAND_MAX = 0x7fff;
 
-    public void generate_new_level_layout() {
+    public void generateNewLevelLayout() {
 
         _level.clean();
         _level.write_background();
@@ -93,7 +103,7 @@ public class LevelGenerator {
         }
     }
 
-    public void generate_frame() {
+    public void generateFrame() {
 
         //upper row
         for (int a = 0; a < MAP_GAME_HEIGHT_TILES; a++) {
@@ -116,7 +126,7 @@ public class LevelGenerator {
         }
     }
 
-    public void initialise_tiles_from_room_layout() {
+    public void initialiseTilesFromRoomLayout() {
 
         //iterate through every room we have
         for (int room_y = ROOMS_Y - 1; room_y >= 0; room_y--) {
@@ -167,6 +177,127 @@ public class LevelGenerator {
                         if(value != MapTile.NOTHING)
                             _level.tiles[tile_x + offset_x][tile_y + offset_y] = value;
                     }
+            }
+        }
+    }
+    
+    public void generateLoot() {
+
+        int gold_bars_left = 100;
+        int rubies_left = 100;
+        int rocks_left = 100;
+        int jars_left = 100;
+        int chests_left = 100;
+        int crates_left = 100;
+
+        for (int b = ROOMS_Y - 1; b >= 0; b--) {
+            for (int a = 0; a < ROOMS_X; a++) {
+
+                int room_type = _level.layout[a][b].getValue();
+                int room_id = _level.layout_room_ids[a][b];
+
+                if (room_id == -1)
+                    continue;
+
+                for (int tab_y = 0; tab_y < ROOM_TILE_HEIGHT_GAME; tab_y++) {
+                    for (int tab_x = 0; tab_x < ROOM_TILE_WIDTH_GAME; tab_x++) {
+
+                        int npc;
+
+                        if (room_type == RoomType.R_LEFT_RIGHT.getValue())
+                            npc = left_right_loot[room_id][tab_y][tab_x];
+                        else if (room_type == RoomType.R_LEFT_RIGHT_UP.getValue())
+                            npc = left_right_up_loot[room_id][tab_y][tab_x];
+                        else if (room_type == RoomType.R_LEFT_RIGHT_DOWN.getValue())
+                            npc = left_right_down_loot[room_id][tab_y][tab_x];
+                        else if (room_type == RoomType.R_ENTRANCE.getValue())
+                            npc = entrance_room_loot[room_id][tab_y][tab_x];
+                        else if (room_type == RoomType.R_EXIT.getValue())
+                            npc = exit_room_loot[room_id][tab_y][tab_x];
+                         else if (room_type == RoomType.R_CLOSED.getValue())
+                            npc = closed_rooms_loot[room_id][tab_y][tab_x];
+                        else
+                            continue;
+
+                        if (npc == 0)
+                            continue;
+
+                        int r = rand.nextInt(CPP_RAND_MAX) % 3;
+                        int loot_type = rand.nextInt(CPP_RAND_MAX) % 6;
+                        loot_type = 1;
+                        r = 1;
+
+                        int pos_y = (1 + ROOM_TILE_WIDTH_GAME * (2 - b)) + tab_x;
+                        int pos_x = (1 + ROOM_TILE_HEIGHT_GAME * (2 - a)) + (10 - tab_y);
+
+                        if (loot_type == 1 && gold_bars_left > 0 && r == 1) {
+
+                            int goldbar_type = rand.nextInt(CPP_RAND_MAX) % 2;
+
+                            if (goldbar_type == 0) {
+                                Loot l = Loot.SINGLE_GOLD_BAR;
+                                l.setPosition(new Vector2(pos_x * 16, pos_y * 16));
+                                _level.loot.add(l);
+                            } else {
+                                Loot l = Loot.TRIPLE_GOLD_BAR;
+                                l.setPosition(new Vector2(pos_x * 16, pos_y * 16));
+                                _level.loot.add(l);
+                            }
+
+                            gold_bars_left--;
+                        }
+
+                        if (loot_type == 2 && rubies_left > 0 && r == 1) {
+
+                            int ruby_type = rand.nextInt(CPP_RAND_MAX) % 2;
+
+                            if (ruby_type == 0) {
+//                                Loot l = Loot.RUBY_SMALL;
+//                                l.setPosition(new Vector2(pos_x * 16, pos_y * 16));
+//                                _level.loot.add(l);
+                            } else {
+//                                Loot l = Loot.RUBY_BIG;
+//                                l.setPosition(new Vector2(pos_x * 16, pos_y * 16));
+//                                _level.loot.add(l);
+                            }
+
+//                            rubies_left--;
+                        }
+
+                        if (loot_type == 3 && jars_left > 0 && r == 1) {
+                            Loot l = Loot.JAR;
+                            l.setPosition(new Vector2(pos_x * 16, pos_y * 16));
+                            _level.loot.add(l);
+
+                            jars_left--;
+                        }
+
+                        if (loot_type == 0 && rocks_left > 0 && r == 1) {
+
+                            Loot l = Loot.ROCK;
+                            l.setPosition(new Vector2(pos_x * 16, pos_y * 16));
+                            _level.loot.add(l);
+
+                            rocks_left--;
+                        }
+
+
+                        if (loot_type == 4 && chests_left > 0 && r == 1) {
+                            Loot l = Loot.CHEST;
+                            l.setPosition(new Vector2(pos_x * 16, pos_y * 16));
+                            _level.loot.add(l);
+
+                            chests_left--;
+                        }
+
+
+                        if (loot_type == 5 && crates_left > 0 && r == 1) {
+//                            Crate *crate = new Crate(pos_x * 16, pos_y * 16);
+//                            global::items.push_back(crate);
+//                            crates_left--;
+                        }
+                    }
+                }
             }
         }
     }

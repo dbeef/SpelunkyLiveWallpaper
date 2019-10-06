@@ -9,16 +9,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.level.Level;
 import com.mygdx.game.level.LevelGenerator;
 import com.mygdx.game.level.LevelRenderer;
-import com.mygdx.game.level.MapTile;
-
-import static com.badlogic.gdx.Gdx.gl;
-import static com.mygdx.game.Consts.*;
 
 public class LiveWallpaperScreen implements Screen{
 
@@ -38,9 +30,10 @@ public class LiveWallpaperScreen implements Screen{
         levelGenerator = new LevelGenerator();
         levelRenderer = new LevelRenderer(assets);
 
-        levelGenerator.generate_new_level_layout();
-        levelGenerator.generate_frame();
-        levelGenerator.initialise_tiles_from_room_layout();
+        levelGenerator.generateNewLevelLayout();
+        levelGenerator.generateFrame();
+        levelGenerator.initialiseTilesFromRoomLayout();
+//        levelGenerator.generateLoot();
     }
 
     @Override

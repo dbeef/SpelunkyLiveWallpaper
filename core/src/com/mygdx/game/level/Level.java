@@ -1,5 +1,7 @@
 package com.mygdx.game.level;
 
+import java.util.LinkedList;
+
 public class Level {
 
     public static final int TILES_X = 32;
@@ -14,6 +16,8 @@ public class Level {
     public static final int MAP_GAME_HEIGHT_TILES = 32;
     public static final int MAP_GAME_WIDTH_TILES = 32;
 
+    public LinkedList<Loot> loot;
+
     public MapTile[][] tiles = new MapTile[TILES_X][TILES_Y];
     // Holds information on what room type is at specific array index
     public RoomType[][] layout = new RoomType[ROOMS_X][ROOMS_Y];
@@ -21,6 +25,10 @@ public class Level {
     // i.e, we have 6 possible 'closed' rooms declared in the closed_rooms.hpp,
     // so this array lets us know, that we have a 'closed' room number 3 (for example) at some place.
     public int[][] layout_room_ids = new int[ROOMS_X][ROOMS_Y];
+
+    Level() {
+        loot = new LinkedList<Loot>();
+    }
 
     public void clean() {
         for (int x = 0; x < TILES_X; x++)

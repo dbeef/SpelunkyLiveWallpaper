@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Assets;
 
 import static com.badlogic.gdx.Gdx.gl;
@@ -13,6 +14,7 @@ import static com.mygdx.game.Consts.SCREEN_HEIGHT;
 import static com.mygdx.game.level.Level.TILES_X;
 import static com.mygdx.game.level.Level.TILES_Y;
 
+// FIXME: Texture bleeding.
 public class LevelRenderer {
 
     public LevelRenderer(Assets assets) {
@@ -56,7 +58,9 @@ public class LevelRenderer {
                 int offset_y = (y * 16);
 
                 // Draw with x/y flip:
-                batcher.draw(assets.getTextureRegion(tile), offset_y, offset_x, TILE_WIDTH, TILE_HEIGHT);
+                TextureRegion region = assets.getTextureRegion(tile);
+                if(region != null)
+                    batcher.draw(region, offset_y, offset_x, TILE_WIDTH, TILE_HEIGHT);
             }
         }
 

@@ -46,7 +46,23 @@ public enum MapTile {
     SHOP_MUGSHOT_4(40),
     ALTAR_LEFT(41),
     ALTAR_RIGHT(42),
-    _END(43);
+    BGR_1(43),
+    BGR_2(44),
+    BGR_3(45),
+    BGR_4(46),
+    BGR_5(47),
+    BGR_6(48),
+    BGR_7(49),
+    BGR_8(50),
+    BGR_9(51),
+    BGR_10(52),
+    BGR_11(53),
+    BGR_12(54),
+    BGR_13(55),
+    BGR_14(56),
+    BGR_15(57),
+    BGR_16(58),
+    _END(59);
 
     MapTile(int value) {
         _value = value;

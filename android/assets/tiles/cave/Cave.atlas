@@ -1,0 +1,223 @@
+
+Cave.png
+size: 128,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arrowTrapLeft
+  rotate: false
+  xy: 110, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+arrowTrapRight
+  rotate: false
+  xy: 74, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+bgCave
+  rotate: false
+  xy: 2, 62
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+block
+  rotate: false
+  xy: 86, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+cave
+  rotate: false
+  xy: 104, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg1
+  rotate: false
+  xy: 92, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg10
+  rotate: false
+  xy: 20, 8
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg11
+  rotate: false
+  xy: 38, 26
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg12
+  rotate: false
+  xy: 56, 26
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg13
+  rotate: false
+  xy: 104, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg14
+  rotate: false
+  xy: 38, 8
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg15
+  rotate: false
+  xy: 104, 74
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg16
+  rotate: false
+  xy: 56, 44
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg2
+  rotate: false
+  xy: 2, 44
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg3
+  rotate: false
+  xy: 68, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg4
+  rotate: false
+  xy: 2, 26
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg5
+  rotate: false
+  xy: 20, 44
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg6
+  rotate: false
+  xy: 68, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg7
+  rotate: false
+  xy: 86, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg8
+  rotate: false
+  xy: 2, 8
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveBg9
+  rotate: false
+  xy: 110, 56
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveDown
+  rotate: false
+  xy: 74, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveUp
+  rotate: false
+  xy: 38, 44
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveUpDown
+  rotate: false
+  xy: 68, 74
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+caveWithRock
+  rotate: false
+  xy: 92, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+entrance
+  rotate: false
+  xy: 92, 56
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+exit
+  rotate: false
+  xy: 56, 8
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+ladder
+  rotate: false
+  xy: 74, 56
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+ladderTop
+  rotate: false
+  xy: 86, 74
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+muchGold
+  rotate: false
+  xy: 74, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+smallGold
+  rotate: false
+  xy: 20, 26
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1

@@ -31,4 +31,30 @@ public class Level {
             for (int y = 0; y < ROOMS_Y; y++)
                 layout[x][y] = RoomType.R_CLOSED;
     }
+
+    public void write_background() {
+        for (int x = 0; x < TILES_X; x += 4)
+            for (int y = 0; y < TILES_Y; y += 4) {
+
+                tiles[x][y + 1] = MapTile.BGR_1;
+                tiles[x + 1][y + 1] = MapTile.BGR_2;
+                tiles[x + 2][y + 1] = MapTile.BGR_7;
+                tiles[x + 3][y + 1] = MapTile.BGR_8;
+
+                tiles[x][y + 0] = MapTile.BGR_3;
+                tiles[x + 1][y + 0] = MapTile.BGR_4;
+                tiles[x + 2][y + 0] = MapTile.BGR_5;
+                tiles[x + 3][y + 0] = MapTile.BGR_6;
+
+                tiles[x][y + 3] = MapTile.BGR_11;
+                tiles[x + 1][y + 3] = MapTile.BGR_12;
+                tiles[x + 2][y + 3] = MapTile.BGR_15;
+                tiles[x + 3][y + 3] = MapTile.BGR_16;
+
+                tiles[x][y + 2] = MapTile.BGR_9;
+                tiles[x + 1][y + 2] = MapTile.BGR_10;
+                tiles[x + 2][y + 2] = MapTile.BGR_13;
+                tiles[x + 3][y + 2] = MapTile.BGR_14;
+            }
+    }
 }

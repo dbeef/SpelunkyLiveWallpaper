@@ -20,6 +20,7 @@ public class LevelGenerator {
     public void generate_new_level_layout() {
 
         _level.clean();
+        _level.write_background();
         rand = new Random();
 
         //set starting position to the random room in the most upper row
@@ -160,7 +161,9 @@ public class LevelGenerator {
 
                 for (int tile_x = 0; tile_x < 10; tile_x++)
                     for (int tile_y = 0; tile_y < 10; tile_y++) {
-                        _level.tiles[tile_x + offset_x][tile_y + offset_y] = MapTile.values()[tab[tile_x][tile_y]];
+                        MapTile value = MapTile.values()[tab[tile_x][tile_y]];
+                        if(value != MapTile.NOTHING)
+                            _level.tiles[tile_x + offset_x][tile_y + offset_y] = value;
                     }
             }
         }

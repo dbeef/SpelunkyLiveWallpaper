@@ -5,7 +5,6 @@ import java.util.Random;
 
 import static com.mygdx.game.level.Level.*;
 import static com.mygdx.game.level.RoomType.*;
-import static com.mygdx.game.level.RoomType.R_CLOSED;
 import static com.mygdx.game.rooms.ClosedRooms.closed_rooms;
 import static com.mygdx.game.rooms.EntranceRooms.entrance_room;
 import static com.mygdx.game.rooms.ExitRooms.exit_room;
@@ -13,9 +12,12 @@ import static com.mygdx.game.rooms.LeftRightDownRooms.left_right_down_rooms;
 import static com.mygdx.game.rooms.LeftRightRooms.left_right_rooms;
 import static com.mygdx.game.rooms.LeftRightUpRooms.left_right_up_rooms;
 
+// FIXME: Does not generate proper level.
 public class LevelGenerator {
 
     private Random rand = new Random();
+
+    private static final int CPP_RAND_MAX = 0x7fff;
 
     public void generate_new_level_layout() {
 
@@ -24,7 +26,7 @@ public class LevelGenerator {
         rand = new Random();
 
         //set starting position to the random room in the most upper row
-        int curr_x = rand.nextInt(ROOMS_X) % 3;
+        int curr_x = rand.nextInt(CPP_RAND_MAX) % 3;
         int curr_y = ROOMS_Y - 1;
         //direction represents where the generator will go in the next loop iteration
         Direction direction = direction = obtain_new_direction(curr_x);
@@ -52,14 +54,14 @@ public class LevelGenerator {
                         //same, if right side
                         curr_x++;
 
-                    if (curr_y == 0 && !exit_placed && rand.nextInt(ROOMS_X) % 2 == 0) {
+                    if (curr_y == 0 && !exit_placed && rand.nextInt(CPP_RAND_MAX) % 2 == 0) {
                         //we're on the most bottom floor, we didn't plant an exit yet and we've guessed that's the place
                         exit_placed = true;
                         _level.layout[curr_x][curr_y] = R_EXIT;
                     } else
                         _level.layout[curr_x][curr_y] = R_LEFT_RIGHT;
 
-                    if (rand.nextInt(ROOMS_X) % 3 == 2)
+                    if (rand.nextInt(CPP_RAND_MAX) % 3 == 2)
                         //random chance that we change our direction to go down in the next iteration
                         direction = Direction.DOWN;
                 }
@@ -72,7 +74,7 @@ public class LevelGenerator {
                     curr_y--;
                     _level.layout[curr_x][curr_y] = R_LEFT_RIGHT_UP;
 
-                    if (curr_y == 0 && !exit_placed && rand.nextInt(ROOMS_X) % 2 == 0) {
+                    if (curr_y == 0 && !exit_placed && rand.nextInt(CPP_RAND_MAX) % 2 == 0) {
                         //if we're on the very bottom floor, no exit planted yet and a guess tells us so, place an exit
                         exit_placed = true;
                         _level.layout[curr_x][curr_y] = R_EXIT;
@@ -178,7 +180,7 @@ public class LevelGenerator {
             return Direction.LEFT;
         else
             //we're in the middle, so make a guess where should we gow now
-            return Direction.values()[rand.nextInt(ROOMS_X) % 2];
+            return Direction.values()[rand.nextInt(CPP_RAND_MAX) % 2];
     }
 
     public Level getLevel() {
